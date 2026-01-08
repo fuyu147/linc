@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/flies.dir/link.d CMakeFiles/flies.dir/source/main.c.o CMakeFiles/flies.dir/source/matrix/matrix.c.o CMakeFiles/flies.dir/source/vector/vector.c.o -o flies
