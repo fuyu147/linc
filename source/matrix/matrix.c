@@ -72,8 +72,7 @@ Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
 Matrix matrixAdd(Matrix M, Matrix n)
 {
         Matrix Z = {};
-        if (!isSameSizes(M, n))
-                return Z;
+        if (!isSameSizes(M, n)) return Z;
 
         Z = matrixInitZeros(M.row, M.col);
 
@@ -109,8 +108,7 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
 {
         Matrix z = {};
 
-        if (M.col != N.row)
-                return z;
+        if (M.col != N.row) return z;
 
         size_t n = M.col;
 
@@ -124,7 +122,7 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
                         for (int k = 0; k < n; k++)
                         {
                                 sum += matrixGetItem(M, i, k) *
-                                    matrixGetItem(N, k, j);
+                                       matrixGetItem(N, k, j);
                         }
                         matrixSetItem(z, i, j, sum);
                 }
@@ -135,8 +133,7 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
 double matrixDeterminant(Matrix M)
 {
         Matrix Z = {};
-        if (!isSquare(M) || M.row > 3 || M.col > 3)
-                return INT32_MAX;
+        if (!isSquare(M) || M.row > 3 || M.col > 3) return INT32_MAX;
 
         if (M.row == 2)
         {
@@ -160,7 +157,7 @@ double matrixDeterminant(Matrix M)
                 double i = matrixGetItem(M, 2, 2);
 
                 return a * e * i + b * f * g + c * d * h - c * e * g -
-                    b * d * i - a * f * h;
+                       b * d * i - a * f * h;
         }
         else
         {
@@ -247,8 +244,7 @@ void matrixGaussJordan(Matrix M)
                 // Eliminate in all other rows
                 for (size_t j = 0; j < M.row; j++)
                 {
-                        if (j == k)
-                                continue;
+                        if (j == k) continue;
                         double factor = M.items[j][k];
                         for (size_t c = 0; c < M.col; c++)
                         {

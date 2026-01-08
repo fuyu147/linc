@@ -21,12 +21,12 @@ int matrixExample();
 typedef struct
 {
         double **items;
-        size_t row;
-        size_t col;
+        size_t   row;
+        size_t   col;
 } Matrix;
 
 double matrixGetItem(Matrix M, size_t r, size_t c);
-void matrixSetItem(Matrix M, size_t r, size_t c, double item);
+void   matrixSetItem(Matrix M, size_t r, size_t c, double item);
 
 Matrix matrixInitZeros(size_t rowNumber, size_t colNumber);
 Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,

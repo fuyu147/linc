@@ -4,10 +4,8 @@
 
 int main()
 {
-        if (0)
-                matrixExample();
-        if (1)
-                vectorExample();
+        if (1) matrixExample();
+        if (1) vectorExample();
 
         return 0;
 }
