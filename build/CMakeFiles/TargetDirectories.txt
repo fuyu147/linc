@@ -1,0 +1,3 @@
+/home/fuyu147/art/flies/build/CMakeFiles/flies.dir
+/home/fuyu147/art/flies/build/CMakeFiles/edit_cache.dir
+/home/fuyu147/art/flies/build/CMakeFiles/rebuild_cache.dir
