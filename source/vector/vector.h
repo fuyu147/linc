@@ -21,7 +21,7 @@
 #define vector_print(xs)                                                       \
         for (int i = 0; i < xs.count; ++i)                                     \
         {                                                                      \
-                printf("%g\n", xs.items[i]);                                   \
+                printf("%5g\n", xs.items[i]);                                   \
         }
 
 typedef struct
@@ -32,4 +32,7 @@ typedef struct
 } Vector;
 
 Vector vectorAdd(Vector u, Vector v);
+double vectorDotProduct(Vector u, Vector v);
 Vector vectorCrossProduct(Vector u, Vector v);
+
+int vectorExample();

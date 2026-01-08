@@ -16,6 +16,8 @@
                 }                                                              \
         } while (0)
 
+int matrixExample();
+
 typedef struct
 {
         double **items;
