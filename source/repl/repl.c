@@ -1,51 +1,101 @@
 #include "repl.h"
 
-#include "../matrix/matrix.h"
 #include "../vector/vector.h"
+#include <math.h>
+#include <stddef.h>
 #include <stdio.h>
+
+const int charOffset    = 48;
+
+const char *matrixDET   = "DET";   // -> mDET(A)
+const char *matrixGAUSS = "GAUSS"; // -> mGAUSS(A)
+const char *matrixRREF  = "RREF";  // -> mRREF(A)
+
+typedef struct
+{
+        char  *items;
+        size_t count;
+        size_t capacity;
+} Digits;
+
+double parseNumber(char *digits)
+{
+        double d;
+        sscanf(digits, "%lf", &d);
+        return d;
+}
 
 int handleLine(const char *line, int strLen)
 {
-        VectorArgs vargs = {};
-        MatrixArgs margs = {};
-
+        printf("line gotten: %s\n", line);
         for (int i = 0; i < strLen; i++)
         {
                 // parse characters and stuff
                 char currentChar = line[i];
+                if (currentChar == ' ') continue;
                 switch (currentChar)
                 {
-                        case matrixIdentifier:
+                        case TOKEN_matrixIdentifier:
                                 break;
-                        case functionCharOpen:
+                        case TOKEN_functionOpen:
                                 break;
-                        case functionCharClose:
-                                break;
-                        case vectorCharOpen:
+                        case TOKEN_vectorOpen:
+                                Digits digits  = {}; // first push each digit to this vector
+                                Vector numbers = {}; // than parse it into a number to this vector
                                 i++;
-                                if (charOffset <= currentChar && currentChar <= charOffset + 9)
+                                for (; i < strLen; i++)
                                 {
-                                        printf("char: %c, number: %d\n", currentChar, currentChar - charOffset);
+                                        char currentChar = line[i];
+                                        if (currentChar == TOKEN_vectorClose)
+                                        {
+                                                if (digits.count > 0)
+                                                {
+                                                        digits.items[digits.count] = '\0';
+                                                        vector_append(numbers, parseNumber(digits.items));
+                                                }
+                                                vector_free(digits);
+                                                vector_print(numbers);
+                                                break;
+                                        }
+                                        else if (currentChar == ',' || currentChar == ' ')
+                                        {
+                                                if (digits.count > 0)
+                                                {
+                                                        digits.items[digits.count] = '\0';
+                                                        vector_append(numbers, parseNumber(digits.items));
+                                                        digits.count = 0;
+                                                }
+                                        }
+                                        else if ('0' <= currentChar && currentChar <= '9')
+                                        {
+                                                int number = currentChar - charOffset;
+                                                vector_append(digits, currentChar);
+                                        }
+                                        else if (currentChar == '.')
+                                        {
+                                                vector_append(digits, currentChar);
+                                        }
+                                        else
+                                        {
+                                                return 1;
+                                        }
                                 }
                                 break;
-                        case vectorCharClose:
+                        case TOKEN_matrixOpen:
                                 break;
-                        case matrixCharOpen:
+                        case TOKEN_operatorMinus:
                                 break;
-                        case matrixCharClose:
+                        case TOKEN_operatorPlus:
                                 break;
-                        case operatorMinus:
+                        case TOKEN_operatorStar:
                                 break;
-                        case operatorPlus:
+                        case TOKEN_operatorDot:
                                 break;
-                        case operatorStar:
+                        case TOKEN_operatorTilde:
                                 break;
-                        case operatorDot:
-                                break;
-                        case operatorTilde:
-                                break;
-                        default: // a space should get us here
-                                break;
+                        default:
+                                printf("nothing to parse\n");
+                                return 1;
                 }
         }
 

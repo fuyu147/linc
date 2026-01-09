@@ -14,11 +14,10 @@ int main()
         if (0) matrixExample();
         if (0) vectorExample();
 
-        const int lineSize       = 256;
-        int       continuePrompt = 1;
+        int continuePrompt = 1;
         while (continuePrompt)
         {
-                char line[lineSize];
+                char line[256];
 
                 printf("> ");
                 fflush(stdout);
@@ -36,23 +35,31 @@ int main()
 
                 line[strcspn(line, "\n")] = '\0';
 
+                int actualLen             = strlen(line);
+
                 if (line[0] == ':')
                 {
                         switch (line[1])
                         {
-                        case 'q':
-                                continuePrompt = 0;
-                                break;
-                        case 'h':
-                                printHelp();
-                                break;
-                        default:
-                                break;
+                                case 'q':
+                                        continuePrompt = 0;
+                                        break;
+                                case 'h':
+                                        printHelp();
+                                        break;
+                                default:
+                                        break;
                         }
                 }
                 else
                 {
-                        handleLine(line, lineSize);
+                        int err = handleLine(line, actualLen);
+
+                        if (err)
+                        {
+                                printf("error gotten in repl\n");
+                                return 1;
+                        }
                 }
         }
 
