@@ -33,5 +33,6 @@ typedef struct
 Vector vectorAdd(Vector u, Vector v);
 double vectorDotProduct(Vector u, Vector v);
 Vector vectorCrossProduct(Vector u, Vector v);
+Vector vectorElementWiseProduct(Vector u, Vector v);
 
 int vectorExample();

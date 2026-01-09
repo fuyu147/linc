@@ -41,3 +41,16 @@ Vector vectorCrossProduct(Vector u, Vector v)
 
         return w;
 }
+
+Vector vectorElementWiseProduct(Vector u, Vector v)
+{
+        Vector w = {};
+        if (u.count != v.count) return w;
+
+        for (int i = 0; i < u.count; i++)
+        {
+                vector_append(w, u.items[i] * v.items[i]);
+        }
+
+        return w;
+}
