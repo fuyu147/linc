@@ -37,8 +37,7 @@ Matrix matrixInitZeros(size_t rowNumber, size_t colNumber)
         return M;
 }
 
-Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
-                                  double defaultValue)
+Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber, double defaultValue)
 {
         Matrix E = matrixInitZeros(rowNumber, colNumber);
 
@@ -53,8 +52,7 @@ Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
         return E;
 }
 
-Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
-                              double (*fn)(size_t, size_t))
+Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber, double (*fn)(size_t, size_t))
 {
         Matrix F = matrixInitZeros(rowNumber, colNumber);
 
@@ -80,9 +78,7 @@ Matrix matrixAdd(Matrix M, Matrix n)
         {
                 for (int c = 0; c < Z.col; c++)
                 {
-                        matrixSetItem(Z, r, c,
-                                      matrixGetItem(M, r, c) +
-                                          matrixGetItem(n, r, c));
+                        matrixSetItem(Z, r, c, matrixGetItem(M, r, c) + matrixGetItem(n, r, c));
                 }
         }
 
@@ -112,7 +108,7 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
 
         size_t n = M.col;
 
-        z = matrixInitZeros(M.row, N.col);
+        z        = matrixInitZeros(M.row, N.col);
 
         for (int i = 0; i < M.row; i++)
                 for (int j = 0; j < N.col; j++)
@@ -121,8 +117,7 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
                         double sum = 0;
                         for (int k = 0; k < n; k++)
                         {
-                                sum += matrixGetItem(M, i, k) *
-                                       matrixGetItem(N, k, j);
+                                sum += matrixGetItem(M, i, k) * matrixGetItem(N, k, j);
                         }
                         matrixSetItem(z, i, j, sum);
                 }
@@ -156,8 +151,7 @@ double matrixDeterminant(Matrix M)
                 double h = matrixGetItem(M, 2, 1);
                 double i = matrixGetItem(M, 2, 2);
 
-                return a * e * i + b * f * g + c * d * h - c * e * g -
-                       b * d * i - a * f * h;
+                return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
         }
         else
         {
