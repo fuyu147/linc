@@ -1,6 +1,5 @@
 #include "repl.h"
 
-#include "../vector/vector.h"
 #include <stddef.h>
 #include <stdio.h>
 
@@ -10,17 +9,13 @@ const char *matrixDET   = "DET";   // -> mDET(A)
 const char *matrixGAUSS = "GAUSS"; // -> mGAUSS(A)
 const char *matrixRREF  = "RREF";  // -> mRREF(A)
 
-typedef struct
-{
-        char  *items;
-        size_t count;
-        size_t capacity;
-} Digits;
+typedef vector_t(char) Digits;
+typedef vector_t(double) Numbers;
 
-double parseNumber(char *digits)
+double parseNumber(Digits digits)
 {
         double d;
-        sscanf(digits, "%lf", &d);
+        // sscanf(digits, "%lf", &d);
         return d;
 }
 

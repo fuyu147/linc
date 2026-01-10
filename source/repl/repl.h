@@ -2,6 +2,8 @@
 
 #include <stddef.h>
 
+#include "../vector/vector.h"
+
 // syntax for vector : {1, 2, 3, ...}
 // syntax for matrix : [[1, 2], [1, 2]]
 //
@@ -44,13 +46,10 @@ enum
         TOKEN_operatorTilde    = '~', // available for vector
 };
 
-typedef struct
-{
-        const char **arg;
-        size_t       count;
-        size_t       capacity;
-} Argument;
+typedef vector_t(const char *) Arguments;
 
 // returns 0 on success parsing line and giving output;
 // returns 1 otherwise
 int handleLine(const char *str, int strLen);
+
+// how should i handle Arguments/operators in Arguments?

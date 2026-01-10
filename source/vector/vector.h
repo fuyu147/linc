@@ -31,12 +31,15 @@
                 xs.capacity = 0;                                                                                       \
         } while (0)
 
-typedef struct
-{
-        double *items;
-        size_t  count;
-        size_t  capacity;
-} Vector;
+#define vector_t(TYPE)                                                                                                 \
+        struct                                                                                                         \
+        {                                                                                                              \
+                TYPE  *items;                                                                                          \
+                size_t count;                                                                                          \
+                size_t capacity;                                                                                       \
+        }
+
+typedef vector_t(double) Vector;
 
 Vector vectorAdd(Vector u, Vector v);
 double vectorDotProduct(Vector u, Vector v);
