@@ -1,7 +1,6 @@
 #include "repl.h"
 
 #include "../vector/vector.h"
-#include <math.h>
 #include <stddef.h>
 #include <stdio.h>
 
@@ -82,6 +81,23 @@ int handleLine(const char *line, int strLen)
                                 }
                                 break;
                         case TOKEN_matrixOpen:
+                                // syntax [[1, 2], [3, 4]]
+                                i++;
+                                for (; i < strLen; i++)
+                                {
+                                        // [ /* we are here*/ [1, 2], [3, 4]]
+                                        int isInside = 0;
+                                        if (isInside)
+                                        {
+                                                // [[/* we are here*/ 1, 2], [3, 4]]
+                                                // parse the inner
+                                        }
+                                        else
+                                        {
+                                                // [ /* we are here*/ [1, 2], [3, 4]]
+                                                // parse the inner
+                                        }
+                                }
                                 break;
                         case TOKEN_operatorMinus:
                                 break;
