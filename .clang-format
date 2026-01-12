@@ -68,7 +68,7 @@ BreakFunctionDefinitionParameters: false
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
 BreakTemplateDeclarations: MultiLine
-ColumnLimit:     120
+ColumnLimit:     80
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerIndentWidth: 4
@@ -148,7 +148,7 @@ PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakBeforeMemberAccess: 150
 PenaltyBreakComment: 300
-PenaltyBreakFirstLessLess: 120
+PenaltyBreakFirstLessLess: 80
 PenaltyBreakOpenParenthesis: 0
 PenaltyBreakScopeResolution: 500
 PenaltyBreakString: 1000
