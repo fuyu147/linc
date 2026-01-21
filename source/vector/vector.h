@@ -34,7 +34,8 @@
         for (int i = 0; i < XS.count; ++i)                                     \
         {                                                                      \
                 printf("%5g\n", XS.items[i]);                                  \
-        }
+        }                                                                      \
+        printf("\n")
 
 #define def_vector_t(TYPE, NAME)                                               \
         typedef struct NAME                                                    \

@@ -1,5 +1,7 @@
 #include "matrix.h"
 
+#include "../vector/vector.h"
+
 double identity(size_t row, size_t col)
 {
         return row == col ? 1 : 0;
@@ -84,6 +86,30 @@ int matrixExample()
         matrixGaussJordan(H);
         printf("After Gauss-Jordan (Reduced Row Echelon Form):\n");
         matrix_print(H);
+
+        printf("--------------------\n");
+        matrix_print(A);
+        printf("--\n");
+
+        VectorList vListRows = matrixToRowVector(A);
+        for (int i = 0; i < vListRows.count; i++)
+        {
+                Vector vec = vListRows.items[i];
+
+                vector_print(vec);
+        }
+
+        printf("--------------------\n");
+        matrix_print(A);
+        printf("--\n");
+
+        VectorList vListCols = matrixToColumnVector(A);
+        for (int i = 0; i < vListCols.count; i++)
+        {
+                Vector vec = vListCols.items[i];
+
+                vector_print(vec);
+        }
 
         return 0;
 }

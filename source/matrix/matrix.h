@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <stdio.h>
 
+#include "../vector/vector.h"
+
 #define matrix_print(m)                                                        \
         do                                                                     \
         {                                                                      \
@@ -50,3 +52,8 @@ void matrixGaussJordan(Matrix M);
 // returns the rank of the matrix
 // or -1 if it fails
 int matrixRank(Matrix M);
+
+def_vector_t(Vector, VectorList);
+
+VectorList matrixToColumnVector(Matrix M);
+VectorList matrixToRowVector(Matrix M);

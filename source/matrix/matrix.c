@@ -258,6 +258,8 @@ int matrixRank(Matrix M)
 {
         Matrix Z = {};
 
+        // how the hell should i find the rank of a matrix superior to 2x2...
+
         if (M.row == 2 && M.col == 2)
         {
                 int isEmpty = 1;
@@ -280,4 +282,38 @@ int matrixRank(Matrix M)
         }
 
         return 0;
+}
+
+VectorList matrixToColumnVector(Matrix M)
+{
+        VectorList vlist = {};
+
+        for (int c = 0; c < M.col; c++)
+        {
+                Vector vcol = {};
+                for (int r = 0; r < M.row; r++)
+                {
+                        vector_append(vcol, matrixGetItem(M, r, c));
+                }
+                vector_append(vlist, vcol);
+        }
+
+        return vlist;
+}
+
+VectorList matrixToRowVector(Matrix M)
+{
+        VectorList vlist = {};
+
+        for (int r = 0; r < M.row; r++)
+        {
+                Vector vrow = {};
+                for (int c = 0; c < M.col; c++)
+                {
+                        vector_append(vrow, matrixGetItem(M, r, c));
+                }
+                vector_append(vlist, vrow);
+        }
+
+        return vlist;
 }
