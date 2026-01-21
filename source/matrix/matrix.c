@@ -37,7 +37,8 @@ Matrix matrixInitZeros(size_t rowNumber, size_t colNumber)
         return M;
 }
 
-Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber, double defaultValue)
+Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
+                                  double defaultValue)
 {
         Matrix E = matrixInitZeros(rowNumber, colNumber);
 
@@ -52,7 +53,8 @@ Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber, double def
         return E;
 }
 
-Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber, double (*fn)(size_t, size_t))
+Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
+                              double (*fn)(size_t, size_t))
 {
         Matrix F = matrixInitZeros(rowNumber, colNumber);
 
@@ -78,7 +80,9 @@ Matrix matrixAdd(Matrix M, Matrix n)
         {
                 for (int c = 0; c < Z.col; c++)
                 {
-                        matrixSetItem(Z, r, c, matrixGetItem(M, r, c) + matrixGetItem(n, r, c));
+                        matrixSetItem(Z, r, c,
+                                      matrixGetItem(M, r, c) +
+                                          matrixGetItem(n, r, c));
                 }
         }
 
@@ -117,7 +121,8 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
                         double sum = 0;
                         for (int k = 0; k < n; k++)
                         {
-                                sum += matrixGetItem(M, i, k) * matrixGetItem(N, k, j);
+                                sum += matrixGetItem(M, i, k) *
+                                       matrixGetItem(N, k, j);
                         }
                         matrixSetItem(z, i, j, sum);
                 }
@@ -151,7 +156,8 @@ double matrixDeterminant(Matrix M)
                 double h = matrixGetItem(M, 2, 1);
                 double i = matrixGetItem(M, 2, 2);
 
-                return a * e * i + b * f * g + c * d * h - c * e * g - b * d * i - a * f * h;
+                return a * e * i + b * f * g + c * d * h - c * e * g -
+                       b * d * i - a * f * h;
         }
         else
         {
@@ -248,8 +254,30 @@ void matrixGaussJordan(Matrix M)
         }
 }
 
-Matrix matrixRank(Matrix M)
+int matrixRank(Matrix M)
 {
         Matrix Z = {};
-        return Z;
+
+        if (M.row == 2 && M.col == 2)
+        {
+                int isEmpty = 1;
+                for (int r = 0; r < Z.row; r++)
+                {
+                        for (int c = 0; c < Z.col; c++)
+                        {
+                                if (matrixGetItem(M, r, c) != 0)
+                                {
+                                        isEmpty = 0;
+                                }
+                        }
+                }
+                if (isEmpty)
+                        return 0;
+                else if (matrixDeterminant(M) == 0)
+                        return 1;
+                else
+                        return 2;
+        }
+
+        return 0;
 }

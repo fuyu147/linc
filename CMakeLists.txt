@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(flies)
+project(linc)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -8,9 +8,10 @@ file(GLOB SRC_FILES
     source/*/*.c
 )
 
-add_executable(flies ${SRC_FILES})
+add_executable(linc ${SRC_FILES})
 
-target_include_directories(flies PRIVATE
+target_include_directories(linc PRIVATE
     source/matrix
     source/vector
+    source/repl
 )

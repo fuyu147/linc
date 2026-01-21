@@ -1,6 +1,6 @@
 .PHONY: run build
 run: build
-	./build/flies
+	./build/linc
 
 build:
 	clear

@@ -25,10 +25,12 @@
 //      A m. B -> multiplication with matrix    (mat mat -> mat)
 //
 // functions for matrices:
-//      mDET(A)                                 (where A is Matrix and returns a
-//      scalar) mGAUSS(A)                               (where A is Matrix and
-//      returns a matrix) mRREF(A)                                (where A is
-//      Matrix and returns a matrix)
+//      mDET(A)                                 (where A is Matrix and returns
+//                                                      a scalar)
+//      mGAUSS(A)                               (where A is Matrix and returns
+//                                                      a matrix)
+//      mRREF(A)                                (where A is a Matrix and
+//                                                      returns a matrix)
 
 typedef enum Token
 {
@@ -36,15 +38,15 @@ typedef enum Token
         TOKEN_matrixPrefix = 'm',
         TOKEN_vectorPrefix = 'v',
 
-        TOKEN_ParenOpen = '(', // X(A) where X is either D, G or R (like above)
-                               // and A is a matrix
+        // X(A) where X is either D, G or R (like above) and A is a matrix
+        TOKEN_ParenOpen   = '(',
         TOKEN_ParenClose  = ')',
 
         TOKEN_vectorOpen  = '{', // vector has syntax: {1, 2, 3, ..., n}
         TOKEN_vectorClose = '}',
 
-        TOKEN_matrixOpen =
-            '[', // matrix has syntax: [[1, 2, 3], [1, 2, 3], ...]
+        // matrix has syntax: [[1, 2, 3], [1, 2, 3], ...]
+        TOKEN_matrixOpen    = '[',
         TOKEN_matrixClose   = ']',
 
         TOKEN_operatorMinus = '-', // available for matrix (m-) & vector (v-)
@@ -101,6 +103,8 @@ typedef struct ParseResult
         } value;
 } ParseResult;
 
+void printHelp();
+int  startPrompt();
 // this returns 0 on success, 1 on failure
 int handleLine(const char *str, int strLen);
 
@@ -109,3 +113,18 @@ int parseResultMatrixArgument(const char *str, Matrix *out);
 int parseResultVectorArgument(const char *str, Vector *out);
 int parseResultOperatorArgument(char op, enum Operator *out);
 int parseResultFunctionsArgument(const char *str, ParseResult *result);
+
+def_vector_t(char, Digits);
+def_vector_t(double, Numbers);
+
+void parseAppendDigits(Numbers ns, Digits ds);
+int  parseMatrixPrefix(ReplArguments *replArguments, int *i, const char *line,
+                       char currentChar, int strLen);
+int  parseVectorPrefix(ReplArguments *replArguments, int *i, const char *line,
+                       char currentChar, int strLen);
+int  parseParen(ReplArguments *replArguments, int *i, const char *line,
+                char currentChar, int strLen);
+int  parseVectorOpen(ReplArguments *replArguments, int *i, const char *line,
+                     char currentChar, int strLen);
+int  parseMatrixOpen(ReplArguments *replArguments, int *i, const char *line,
+                     char currentChar, int strLen);

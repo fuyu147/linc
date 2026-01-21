@@ -1,82 +1,10 @@
 #include "repl.h"
-#include "vector.h"
 
 #include <ctype.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-const int charOffset    = 48;
-
-const char *matrixDET   = "DET";   // -> mDET(A)
-const char *matrixGAUSS = "GAUSS"; // -> mGAUSS(A)
-const char *matrixRREF  = "RREF";  // -> mRREF(A)
-
-def_vector_t(char, Digits);
-def_vector_t(double, Numbers);
-
-void parseAppendDigits(Numbers ns, Digits ds);
-int  parseMatrixPrefix(ReplArguments *replArguments, int *i, const char *line,
-                       char currentChar, int strLen);
-int  parseVectorPrefix(ReplArguments *replArguments, int *i, const char *line,
-                       char currentChar, int strLen);
-int  parseParen(ReplArguments *replArguments, int *i, const char *line,
-                char currentChar, int strLen);
-int  parseVector(ReplArguments *replArguments, int *i, const char *line,
-                 char currentChar, int strLen);
-int  parseMatrix(ReplArguments *replArguments, int *i, const char *line,
-                 char currentChar, int strLen);
-
-int handleLine(const char *line, int strLen)
-{
-        ReplArguments replArguments = {};
-
-        printf("line gotten: %s\n", line);
-        for (int i = 0; i < strLen; i++)
-        {
-                char currentChar = line[i];
-                if (currentChar == ' ') continue;
-                switch (currentChar)
-                {
-                        case TOKEN_matrixPrefix:
-                                int errMatrix =
-                                    parseMatrixPrefix(&replArguments, &i, line,
-                                                      currentChar, strLen);
-                                if (errMatrix) return 1;
-                                break;
-                        case TOKEN_vectorPrefix:
-                                int errVector =
-                                    parseVectorPrefix(&replArguments, &i, line,
-                                                      currentChar, strLen);
-                                if (errVector) return 1;
-                                break;
-                        case TOKEN_ParenOpen:
-                                int errParen =
-                                    parseVectorPrefix(&replArguments, &i, line,
-                                                      currentChar, strLen);
-                                if (errParen) return 1;
-                                break;
-                        case TOKEN_vectorOpen:
-                                int errVectorOpen =
-                                    parseVector(&replArguments, &i, line,
-                                                currentChar, strLen);
-                                if (errVectorOpen) return 1;
-                                break;
-                        case TOKEN_matrixOpen:
-                                int errMatrixOpen =
-                                    parseMatrix(&replArguments, &i, line,
-                                                currentChar, strLen);
-                                if (errMatrixOpen) return 1;
-                                break;
-                        default:
-                                printf("nothing to parse\n");
-                                return 1;
-                }
-        }
-
-        return 0;
-}
 
 int parseMatrixPrefix(ReplArguments *replArguments, int *i, const char *line,
                       char currentChar, int strLen)
@@ -96,7 +24,7 @@ int parseMatrixPrefix(ReplArguments *replArguments, int *i, const char *line,
                         if (!item_str)
                         {
                                 printf("malloc failed\n");
-                                return NULL;
+                                return 1;
                         }
 
                         item_str[0]      = currentChar; // 'm'
@@ -167,12 +95,14 @@ int parseVectorPrefix(ReplArguments *replArguments, int *i, const char *line,
                                 printf("malloc failed\n");
                                 return 1;
                         }
+
                         item_str[0]      = currentChar; // 'v'
                         item_str[1]      = next_char;
                         item_str[2]      = '\0';
 
                         ReplArgument arg = {.item = item_str,
                                             .kind = ARGUMENT_KIND_operator};
+
                         vector_append_ptr(replArguments, arg);
 
                         i++; // Consume the operator character as well
@@ -251,4 +181,15 @@ int parseParen(ReplArguments *replArguments, int *i, const char *line,
 
         *i = arg_end; // continue parsing after ')'
         return 0;
+}
+
+int parseVectorOpen(ReplArguments *replArguments, int *i, const char *line,
+                    char currentChar, int strLen)
+{
+        return 1;
+}
+int parseMatrixOpen(ReplArguments *replArguments, int *i, const char *line,
+                    char currentChar, int strLen)
+{
+        return 1;
 }
