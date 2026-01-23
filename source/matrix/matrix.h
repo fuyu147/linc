@@ -20,40 +20,40 @@
 
 int matrixExample();
 
-typedef struct Matrix
+typedef struct LincLincMatrix
 {
         double **items;
         size_t   row;
         size_t   col;
-} Matrix;
+} LincMatrix;
 
-double matrixGetItem(Matrix M, size_t r, size_t c);
-void   matrixSetItem(Matrix M, size_t r, size_t c, double item);
+double matrixGetItem(LincMatrix M, size_t r, size_t c);
+void   matrixSetItem(LincMatrix M, size_t r, size_t c, double item);
 
-Matrix matrixInitZeros(size_t rowNumber, size_t colNumber);
-Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
-                                  double defaultValue);
+LincMatrix matrixInitZeros(size_t rowNumber, size_t colNumber);
+LincMatrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
+                                      double defaultValue);
 
-Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
-                              double (*fn)(size_t, size_t));
+LincMatrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
+                                  double (*fn)(size_t, size_t));
 
-Matrix matrixAdd(Matrix M, Matrix N);
-Matrix matrixMultiplyK(Matrix M, double k);
-Matrix matrixMultiplyM(Matrix M, Matrix N);
+LincMatrix matrixAdd(LincMatrix M, LincMatrix N);
+LincMatrix matrixMultiplyK(LincMatrix M, double k);
+LincMatrix matrixMultiplyM(LincMatrix M, LincMatrix N);
 
 // currently only allows matrices where row|col <= 3
 // returns INT32_MAX if cannot do it
-double matrixDeterminant(Matrix M);
+double matrixDeterminant(LincMatrix M);
 
 // these 2 modifies the data of the matrix passed
-void matrixGauss(Matrix M);
-void matrixGaussJordan(Matrix M);
+void matrixGauss(LincMatrix M);
+void matrixGaussJordan(LincMatrix M);
 
 // returns the rank of the matrix
 // or -1 if it fails
-int matrixRank(Matrix M);
+int matrixRank(LincMatrix M);
 
 def_vector_t(Vector, VectorList);
 
-VectorList matrixToColumnVector(Matrix M);
-VectorList matrixToRowVector(Matrix M);
+VectorList matrixToColumnVector(LincMatrix M);
+VectorList matrixToRowVector(LincMatrix M);

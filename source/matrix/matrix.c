@@ -4,32 +4,32 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-bool isSquare(Matrix M)
+bool isSquare(LincMatrix M)
 {
         return M.row == M.col;
 }
 
-bool isSameSizes(Matrix M, Matrix N)
+bool isSameSizes(LincMatrix M, LincMatrix N)
 {
         return M.row == N.row && M.col == N.col;
 }
 
-double matrixGetItem(Matrix M, size_t r, size_t c)
+double matrixGetItem(LincMatrix M, size_t r, size_t c)
 {
         return M.items[r][c];
 }
 
-void matrixSetItem(Matrix M, size_t r, size_t c, double item)
+void matrixSetItem(LincMatrix M, size_t r, size_t c, double item)
 {
         M.items[r][c] = item;
 }
 
-Matrix matrixInitZeros(size_t rowNumber, size_t colNumber)
+LincMatrix matrixInitZeros(size_t rowNumber, size_t colNumber)
 {
-        Matrix M = {};
-        M.row    = rowNumber;
-        M.col    = colNumber;
-        M.items  = (double **)malloc(rowNumber * sizeof(double *));
+        LincMatrix M = {};
+        M.row        = rowNumber;
+        M.col        = colNumber;
+        M.items      = (double **)malloc(rowNumber * sizeof(double *));
         for (size_t i = 0; i < rowNumber; i++)
         {
                 M.items[i] = (double *)calloc(colNumber, sizeof(double));
@@ -37,10 +37,10 @@ Matrix matrixInitZeros(size_t rowNumber, size_t colNumber)
         return M;
 }
 
-Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
-                                  double defaultValue)
+LincMatrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
+                                      double defaultValue)
 {
-        Matrix E = matrixInitZeros(rowNumber, colNumber);
+        LincMatrix E = matrixInitZeros(rowNumber, colNumber);
 
         for (int c = 0; c < colNumber; c++)
         {
@@ -53,10 +53,10 @@ Matrix matrixInitWithDefaultValue(size_t rowNumber, size_t colNumber,
         return E;
 }
 
-Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
-                              double (*fn)(size_t, size_t))
+LincMatrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
+                                  double (*fn)(size_t, size_t))
 {
-        Matrix F = matrixInitZeros(rowNumber, colNumber);
+        LincMatrix F = matrixInitZeros(rowNumber, colNumber);
 
         for (int c = 0; c < colNumber; c++)
         {
@@ -69,9 +69,9 @@ Matrix matrixInitWithFunction(size_t rowNumber, size_t colNumber,
         return F;
 }
 
-Matrix matrixAdd(Matrix M, Matrix n)
+LincMatrix matrixAdd(LincMatrix M, LincMatrix n)
 {
-        Matrix Z = {};
+        LincMatrix Z = {};
         if (!isSameSizes(M, n)) return Z;
 
         Z = matrixInitZeros(M.row, M.col);
@@ -89,9 +89,9 @@ Matrix matrixAdd(Matrix M, Matrix n)
         return Z;
 }
 
-Matrix matrixMultiplyK(Matrix M, double k)
+LincMatrix matrixMultiplyK(LincMatrix M, double k)
 {
-        Matrix z = matrixInitZeros(M.row, M.col);
+        LincMatrix z = matrixInitZeros(M.row, M.col);
 
         for (int r = 0; r < z.row; r++)
         {
@@ -104,9 +104,9 @@ Matrix matrixMultiplyK(Matrix M, double k)
         return z;
 }
 
-Matrix matrixMultiplyM(Matrix M, Matrix N)
+LincMatrix matrixMultiplyM(LincMatrix M, LincMatrix N)
 {
-        Matrix z = {};
+        LincMatrix z = {};
 
         if (M.col != N.row) return z;
 
@@ -130,9 +130,9 @@ Matrix matrixMultiplyM(Matrix M, Matrix N)
         return z;
 }
 
-double matrixDeterminant(Matrix M)
+double matrixDeterminant(LincMatrix M)
 {
-        Matrix Z = {};
+        LincMatrix Z = {};
         if (!isSquare(M) || M.row > 3 || M.col > 3) return INT32_MAX;
 
         if (M.row == 2)
@@ -165,7 +165,7 @@ double matrixDeterminant(Matrix M)
         }
 }
 
-void matrixGauss(Matrix M)
+void matrixGauss(LincMatrix M)
 {
         size_t min_dim = (M.row < M.col) ? M.row : M.col;
         for (size_t k = 0; k < min_dim; k++)
@@ -209,7 +209,7 @@ void matrixGauss(Matrix M)
         }
 }
 
-void matrixGaussJordan(Matrix M)
+void matrixGaussJordan(LincMatrix M)
 {
         size_t min_dim = (M.row < M.col) ? M.row : M.col;
         for (size_t k = 0; k < min_dim; k++)
@@ -254,9 +254,9 @@ void matrixGaussJordan(Matrix M)
         }
 }
 
-int matrixRank(Matrix M)
+int matrixRank(LincMatrix M)
 {
-        Matrix Z = {};
+        LincMatrix Z = {};
 
         // how the hell should i find the rank of a matrix superior to 2x2...
 
@@ -284,7 +284,7 @@ int matrixRank(Matrix M)
         return 0;
 }
 
-VectorList matrixToColumnVector(Matrix M)
+VectorList matrixToColumnVector(LincMatrix M)
 {
         VectorList vlist = {};
 
@@ -301,7 +301,7 @@ VectorList matrixToColumnVector(Matrix M)
         return vlist;
 }
 
-VectorList matrixToRowVector(Matrix M)
+VectorList matrixToRowVector(LincMatrix M)
 {
         VectorList vlist = {};
 

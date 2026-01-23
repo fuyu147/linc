@@ -10,8 +10,8 @@ double identity(size_t row, size_t col)
 int matrixExample()
 {
 
-        Matrix A = matrixInitZeros(4, 2);
-        Matrix B = matrixInitZeros(2, 3);
+        LincMatrix A = matrixInitZeros(4, 2);
+        LincMatrix B = matrixInitZeros(2, 3);
 
         // Set values for A (4x2)
         matrixSetItem(A, 0, 0, 1);
@@ -38,11 +38,11 @@ int matrixExample()
         matrix_print(matrixMultiplyM(A, B));
 
         printf("---------------------\n");
-        Matrix D = matrixInitZeros(3, 3);
+        LincMatrix D = matrixInitZeros(3, 3);
         printf("det: [%g]\n", matrixDeterminant(D));
 
         // Example 1: 2x2 matrix [[1,2],[3,4]], det = -2
-        Matrix E = matrixInitZeros(2, 2);
+        LincMatrix E = matrixInitZeros(2, 2);
         matrixSetItem(E, 0, 0, 1);
         matrixSetItem(E, 0, 1, 2);
         matrixSetItem(E, 1, 0, 3);
@@ -50,11 +50,11 @@ int matrixExample()
         printf("det of 2x2: %g (expected -2)\n", matrixDeterminant(E));
 
         // Example 2: 3x3 identity, det = 1
-        Matrix F = matrixInitWithFunction(3, 3, identity);
+        LincMatrix F = matrixInitWithFunction(3, 3, identity);
         printf("det of 3x3: %g (expected 1)\n", matrixDeterminant(F));
 
         printf("---------------------\n");
-        Matrix G = matrixInitZeros(3, 3);
+        LincMatrix G = matrixInitZeros(3, 3);
         matrixSetItem(G, 0, 0, 1);
         matrixSetItem(G, 0, 1, 2);
         matrixSetItem(G, 0, 2, 3);
@@ -64,14 +64,14 @@ int matrixExample()
         matrixSetItem(G, 2, 0, 7);
         matrixSetItem(G, 2, 1, 8);
         matrixSetItem(G, 2, 2, 9);
-        printf("Original Matrix for Gauss:\n");
+        printf("Original LincMatrix for Gauss:\n");
         matrix_print(G);
         matrixGauss(G);
         printf("After Gauss (Row Echelon Form):\n");
         matrix_print(G);
 
         printf("---------------------\n");
-        Matrix H = matrixInitZeros(3, 3);
+        LincMatrix H = matrixInitZeros(3, 3);
         matrixSetItem(H, 0, 0, 1);
         matrixSetItem(H, 0, 1, 2);
         matrixSetItem(H, 0, 2, 3);
@@ -81,7 +81,7 @@ int matrixExample()
         matrixSetItem(H, 2, 0, 7);
         matrixSetItem(H, 2, 1, 8);
         matrixSetItem(H, 2, 2, 9);
-        printf("Original Matrix for Gauss-Jordan:\n");
+        printf("Original LincMatrix for Gauss-Jordan:\n");
         matrix_print(H);
         matrixGaussJordan(H);
         printf("After Gauss-Jordan (Reduced Row Echelon Form):\n");

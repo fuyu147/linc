@@ -15,3 +15,5 @@ target_include_directories(linc PRIVATE
     source/vector
     source/repl
 )
+
+target_link_libraries(linc PRIVATE raylib)
